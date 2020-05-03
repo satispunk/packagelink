@@ -5,13 +5,25 @@ import child_process from 'child_process';
 import chalk from 'chalk';
 import validate from '../config/validate';
 import {publishSchema} from '../config/schema';
+import {Config} from '../config/Config';
 
 const tmpdir = os.tmpdir();
 const packagelinkDir = path.resolve(tmpdir, 'packagelink');
 
 const command = 'publish';
 const describe = 'Pack and publish to a temporary folder';
+const builder = (yargs): void => {
+  yargs.check((argv) => {
+    const {isValid, error} = validate(argv.config, publishSchema);
+    if (!isValid) {
+      throw new Error(chalk.red(error));
+    }
+
+    return true;
+  });
+};
 const handler = (argv): void => {
+  const config: Config = argv.config;
   if (!fs.existsSync(tmpdir)) {
     fs.mkdirSync(tmpdir);
   }
@@ -21,12 +33,6 @@ const handler = (argv): void => {
   }
 
   process.chdir(packagelinkDir);
-
-  const {isValid, config, error} = validate(argv.config, publishSchema);
-  if (!isValid) {
-    console.error(chalk.red(error));
-    process.exit(1);
-  }
 
   const packages = config.publish.packages;
 
@@ -43,4 +49,4 @@ const handler = (argv): void => {
   }
 };
 
-export {command, describe, handler};
+export {command, describe, handler, builder};

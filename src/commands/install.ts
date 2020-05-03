@@ -6,12 +6,18 @@ import {deleteFolderRecursive} from '../utils/deleteFolderRecursive';
 import validate from '../config/validate';
 import {installSchema} from '../config/schema';
 import chalk from 'chalk';
+import {Config} from '../config/Config';
 
 const cwd = process.cwd();
 const tmpdir = os.tmpdir();
 const packagelinkDir = path.resolve(tmpdir, 'packagelink');
 
-const install = ({packages, dependencyType}): void => {
+enum DependencyTypes {
+  prod = '--save',
+  dev = '--save-dev',
+}
+
+const install = ({packages, dependencyType}: {packages: string[]; dependencyType: DependencyTypes}): void => {
   const packageList = packages.reduce((packageList, nextPackage) => {
     const packagePath = path.join(cwd, `${nextPackage}.tgz`);
     if (fs.existsSync(packagePath)) {
@@ -26,14 +32,18 @@ const install = ({packages, dependencyType}): void => {
 
 const command = 'install';
 const describe = 'Install packages from a temporary folder';
-const handler = (argv): void => {
-  const {isValid, config, error} = validate(argv.config, installSchema);
-  console.log(isValid);
-  if (!isValid) {
-    console.error(chalk.red(error));
-    process.exit(1);
-  }
+const builder = (yargs): void => {
+  yargs.check((argv) => {
+    const {isValid, error} = validate(argv.config, installSchema);
+    if (!isValid) {
+      throw new Error(chalk.red(error));
+    }
 
+    return true;
+  });
+};
+const handler = (argv): void => {
+  const config: Config = argv.config;
   const dependencies = config.install.dependencies;
   const devDependencies = config.install.devDependencies;
 
@@ -48,14 +58,9 @@ const handler = (argv): void => {
     }
   }
 
-  const DependencyTypes = {
-    regular: '--save',
-    dev: '--save-dev',
-  };
-
   install({
     packages: dependencies,
-    dependencyType: DependencyTypes.regular,
+    dependencyType: DependencyTypes.prod,
   });
   install({
     packages: devDependencies,
@@ -63,4 +68,4 @@ const handler = (argv): void => {
   });
 };
 
-export {command, describe, handler};
+export {command, describe, handler, builder};

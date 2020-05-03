@@ -10,6 +10,7 @@ import chalk from 'chalk';
 const cwd = process.cwd();
 
 yargs
+  .usage('Usage: $0 <command> [options]')
   .option('config', {
     alias: 'c',
     default: 'packagelink.config.js',
@@ -21,8 +22,7 @@ yargs
     try {
       rawConfig = require(path.join(cwd, configPath));
     } catch {
-      console.error(chalk.red(`packagelink.config.js is missing or cannot be parsed in "${cwd}".`));
-      process.exit(1);
+      throw new Error(chalk.red(`packagelink.config.js is missing or cannot be parsed in "${cwd}".`));
     }
 
     return rawConfig;
@@ -31,4 +31,5 @@ yargs
   .command(install)
   .command(clean)
   .demandCommand(1, 'Command must be provided.')
+  .showHelpOnFail(false)
   .help().argv;
