@@ -41,7 +41,9 @@
     "@typescript-eslint/parser": "2.30.0",
     "eslint": "6.8.0",
     "eslint-config-recommended": "4.0.0",
+    "husky": "4.2.5",
     "jest": "25.5.4",
+    "lint-staged": "10.2.2",
     "prettier": "2.0.5",
     "rimraf": "3.0.2",
     "typescript": "3.8.3"
@@ -51,5 +53,18 @@
     "ajv-errors": "1.0.1",
     "chalk": "4.0.0",
     "yargs": "15.3.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix"
+    ],
+    "*.{js,ts}": [
+      "prettier --write"
+    ]
   }
 }
