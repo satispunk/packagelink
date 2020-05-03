@@ -12,8 +12,8 @@
     "watch": "npm run build -- --watch --verbose",
     "tsc": "tsc",
     "test": "jest",
-    "eslint": "eslint --fix",
-    "prettier": "prettier --write"
+    "eslint": "eslint --fix {src,__tests__}/**/*.{js,ts}",
+    "prettier": "prettier --write {src,__tests__}/**/*.{js,ts}"
   },
   "repository": {
     "type": "git",

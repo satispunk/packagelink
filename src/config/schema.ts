@@ -1,49 +1,49 @@
 const publishProperty = {
   properties: {
     packages: {
-      type: "array",
-      items: {type: "string"},
+      type: 'array',
+      items: {type: 'string'},
       uniqueItems: true,
-    }
+    },
   },
   required: ['packages'],
   additionalProperties: false,
-}
+};
 
 const installProperty = {
   properties: {
     dependencies: {
-      type: "array",
-      items: {type: "string"},
+      type: 'array',
+      items: {type: 'string'},
       uniqueItems: true,
     },
     devDependencies: {
-      type: "array",
-      items: {type: "string"},
+      type: 'array',
+      items: {type: 'string'},
       uniqueItems: true,
     },
   },
   additionalProperties: false,
-}
+};
 
 export const publishSchema = {
-  title: "packagelink",
-  description: "packagelink publish config",
+  title: 'packagelink',
+  description: 'packagelink publish config',
   properties: {
     publish: publishProperty,
-    install: installProperty
+    install: installProperty,
   },
-  required: ["publish"],
+  required: ['publish'],
   additionalProperties: false,
-}
+};
 
 export const installSchema = {
-  title: "packagelink",
-  description: "packagelink install config",
+  title: 'packagelink',
+  description: 'packagelink install config',
   properties: {
     publish: publishProperty,
-    install: installProperty
+    install: installProperty,
   },
-  required: ["install"],
+  required: ['install'],
   additionalProperties: false,
-}
+};

@@ -4,8 +4,8 @@ import yargs from 'yargs';
 import * as publish from './commands/publish';
 import * as install from './commands/install';
 import * as clean from './commands/clean';
-import path from "path";
-import chalk from "chalk";
+import path from 'path';
+import chalk from 'chalk';
 
 const cwd = process.cwd();
 
@@ -14,7 +14,7 @@ yargs
     alias: 'c',
     default: 'packagelink.config.js',
     describe: 'packagelink config file',
-    type: 'string'
+    type: 'string',
   })
   .coerce('config', (configPath) => {
     let rawConfig;
@@ -31,5 +31,4 @@ yargs
   .command(install)
   .command(clean)
   .demandCommand(1, 'Command must be provided.')
-  .help()
-  .argv;
+  .help().argv;

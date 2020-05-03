@@ -3,15 +3,15 @@ import fs from 'fs';
 import os from 'os';
 import child_process from 'child_process';
 import chalk from 'chalk';
-import validate from "../config/validate";
-import {publishSchema} from "../config/schema";
+import validate from '../config/validate';
+import {publishSchema} from '../config/schema';
 
 const tmpdir = os.tmpdir();
 const packagelinkDir = path.resolve(tmpdir, 'packagelink');
 
 const command = 'publish';
 const describe = 'Pack and publish to a temporary folder';
-const handler = (argv) => {
+const handler = (argv): void => {
   if (!fs.existsSync(tmpdir)) {
     fs.mkdirSync(tmpdir);
   }
@@ -25,7 +25,7 @@ const handler = (argv) => {
   const {isValid, config, error} = validate(argv.config, publishSchema);
   if (!isValid) {
     console.error(chalk.red(error));
-    process.exit(1)
+    process.exit(1);
   }
 
   const packages = config.publish.packages;
@@ -35,16 +35,12 @@ const handler = (argv) => {
   console.log(`Packages packed to ${packagelinkDir}`);
 
   for (const packageFolder of packages) {
-    const packageJson = require(path.resolve(packageFolder, 'package.json'));
+    const packageJson = JSON.parse(fs.readFileSync(path.resolve(packageFolder, 'package.json')).toString());
     const {name, version} = packageJson;
     const packagePathWithVersion = path.resolve(packagelinkDir, `${name}-${version}.tgz`);
     const packagePath = path.resolve(packagelinkDir, `${name}.tgz`);
     fs.renameSync(packagePathWithVersion, packagePath);
   }
-}
+};
 
-export {
-  command,
-  describe,
-  handler
-}
+export {command, describe, handler};
