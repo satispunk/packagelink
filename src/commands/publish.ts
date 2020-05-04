@@ -13,7 +13,7 @@ const packagelinkDir = path.resolve(tmpdir, 'packagelink');
 
 const command = 'publish';
 const describe = 'Pack and publish to a temporary folder';
-const builder = (yargs): Argv<any> => {
+const builder = <T>(yargs): Argv<T> => {
   return yargs.check((argv) => {
     const {isValid, error} = validate(argv.config, publishSchema);
     if (!isValid) {

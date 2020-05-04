@@ -33,7 +33,7 @@ const install = ({packages, dependencyType}: {packages: string[]; dependencyType
 
 const command = 'install';
 const describe = 'Install packages from a temporary folder';
-const builder = (yargs): Argv<any> => {
+const builder = <T>(yargs): Argv<T> => {
   return yargs.check((argv) => {
     const {isValid, error} = validate(argv.config, installSchema);
     if (!isValid) {
