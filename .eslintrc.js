@@ -6,5 +6,13 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/camelcase': 0,
-  }
+  },
+  overrides: [
+    {
+      files: ['__tests__/**/*.*'],
+      env: {
+        jest: true,
+      },
+    },
+  ],
 };
