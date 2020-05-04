@@ -6,14 +6,15 @@ import chalk from 'chalk';
 import validate from '../config/validate';
 import {publishSchema} from '../config/schema';
 import {Config} from '../config/Config';
+import {Argv} from 'yargs';
 
 const tmpdir = os.tmpdir();
 const packagelinkDir = path.resolve(tmpdir, 'packagelink');
 
 const command = 'publish';
 const describe = 'Pack and publish to a temporary folder';
-const builder = (yargs): void => {
-  yargs.check((argv) => {
+const builder = (yargs): Argv<any> => {
+  return yargs.check((argv) => {
     const {isValid, error} = validate(argv.config, publishSchema);
     if (!isValid) {
       throw new Error(chalk.red(error));

@@ -7,6 +7,7 @@ import validate from '../config/validate';
 import {installSchema} from '../config/schema';
 import chalk from 'chalk';
 import {Config} from '../config/Config';
+import {Argv} from 'yargs';
 
 const cwd = process.cwd();
 const tmpdir = os.tmpdir();
@@ -32,8 +33,8 @@ const install = ({packages, dependencyType}: {packages: string[]; dependencyType
 
 const command = 'install';
 const describe = 'Install packages from a temporary folder';
-const builder = (yargs): void => {
-  yargs.check((argv) => {
+const builder = (yargs): Argv<any> => {
+  return yargs.check((argv) => {
     const {isValid, error} = validate(argv.config, installSchema);
     if (!isValid) {
       throw new Error(chalk.red(error));
