@@ -22,11 +22,11 @@ Then you can `install` packages in a consumer application. Each installed *.tgz 
 #### Installation
 
 ```
-npm install --save-dev packagelink
+npm install --save-dev @satispunk/packagelink
 ```
 or install it globally
 ```
-npm install -g packagelink
+npm install -g @satispunk/packagelink
 ```
 
 #### Single package
