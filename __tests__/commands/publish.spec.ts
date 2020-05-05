@@ -4,7 +4,9 @@ describe('publish command', () => {
   describe('publish builder', () => {
     it('should throw error if config is not valid', () => {
       const argv = {
-        config: {},
+        config: {
+          publish: {},
+        },
       };
       const yargs = {
         check: jest.fn((callback) => {

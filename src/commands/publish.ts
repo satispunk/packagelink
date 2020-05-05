@@ -9,6 +9,7 @@ import {Config} from '../config/Config';
 import {Argv} from 'yargs';
 
 const tmpdir = os.tmpdir();
+const packagePath = process.cwd();
 const packagelinkDir = path.resolve(tmpdir, 'packagelink');
 
 const command = 'publish';
@@ -33,11 +34,10 @@ const handler = (argv): void => {
     fs.mkdirSync(packagelinkDir);
   }
 
-  process.chdir(packagelinkDir);
+  /* No packages specified in config, then publish package from cwd */
+  const packages = config.publish.packages.length > 0 ? config.publish.packages : [packagePath];
 
-  const packages = config.publish.packages;
-
-  child_process.execSync(`npm pack ${packages.join(' ')}`, {stdio: 'inherit'});
+  child_process.execSync(`npm pack ${packages.join(' ')}`, {stdio: 'inherit', cwd: packagelinkDir});
 
   console.log(`Packages packed to ${packagelinkDir}`);
 

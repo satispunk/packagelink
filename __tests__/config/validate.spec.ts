@@ -3,11 +3,11 @@ import {publishSchema, installSchema} from '../../src/config/schema';
 
 describe('validate', () => {
   describe('publish schema', () => {
-    it('should not be valid if have no "publish" property', () => {
+    it('should be valid if have no "publish" property', () => {
       const config = {};
       const {isValid, error} = validate(config, publishSchema);
-      expect(isValid).toBeFalsy();
-      expect(error).toBe(`[packagelink.config] should have required property 'publish'`);
+      expect(isValid).toBeTruthy();
+      expect(error).toBeUndefined();
     });
 
     it('should not be valid if have no "publish.packages" property', () => {
@@ -83,11 +83,11 @@ describe('validate', () => {
   });
 
   describe('install schema', () => {
-    it('should not be valid if have no "install" property', () => {
+    it('should be valid if have no "install" property', () => {
       const config = {};
       const {isValid, error} = validate(config, installSchema);
-      expect(isValid).toBeFalsy();
-      expect(error).toBe(`[packagelink.config] should have required property 'install'`);
+      expect(isValid).toBeTruthy();
+      expect(error).toBeUndefined();
     });
 
     it('should be valid if have no "dependencies" or "devDependencies" property', () => {

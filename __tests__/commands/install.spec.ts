@@ -4,7 +4,9 @@ describe('install command', () => {
   describe('install builder', () => {
     it('should throw error if config is not valid', () => {
       const argv = {
-        config: {},
+        config: {
+          install: {},
+        },
       };
       const yargs = {
         check: jest.fn((callback) => {
@@ -23,6 +25,7 @@ describe('install command', () => {
     });
 
     it('should return true if config is valid', () => {
+      let checkResult;
       const argv = {
         config: {
           install: {
@@ -31,13 +34,20 @@ describe('install command', () => {
         },
       };
       const yargs = {
+        positional: jest.fn(() => {
+          return yargs;
+        }),
+        option: jest.fn(() => {
+          return yargs;
+        }),
         check: jest.fn((callback) => {
-          return callback(argv);
+          checkResult = callback(argv);
+          return yargs;
         }),
       };
 
       builder(yargs);
-      expect(yargs.check).toReturnWith(true);
+      expect(checkResult).toBeTruthy();
     });
   });
 });

@@ -5,7 +5,6 @@ import * as publish from './commands/publish';
 import * as install from './commands/install';
 import * as clean from './commands/clean';
 import path from 'path';
-import chalk from 'chalk';
 
 const cwd = process.cwd();
 
@@ -22,7 +21,15 @@ yargs
     try {
       rawConfig = require(path.join(cwd, configPath));
     } catch {
-      throw new Error(chalk.red(`packagelink.config.js is missing or cannot be parsed in "${cwd}".`));
+      return {
+        publish: {
+          packages: [],
+        },
+        install: {
+          dependencies: [],
+          devDependencies: [],
+        },
+      };
     }
 
     return rawConfig;

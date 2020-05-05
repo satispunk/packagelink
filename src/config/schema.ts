@@ -33,7 +33,6 @@ export const publishSchema = {
     publish: publishProperty,
     install: installProperty,
   },
-  required: ['publish'],
   additionalProperties: false,
 };
 
@@ -44,6 +43,5 @@ export const installSchema = {
     publish: publishProperty,
     install: installProperty,
   },
-  required: ['install'],
   additionalProperties: false,
 };
