@@ -1,4 +1,4 @@
-# packagelink
+# @satispunk/packagelink
 `npm link` alternative tool
 
 ### Use case
