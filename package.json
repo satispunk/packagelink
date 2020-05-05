@@ -1,7 +1,7 @@
 {
   "name": "@satispunk/packagelink",
   "version": "0.1.4",
-  "description": "",
+  "description": "npm link alternative tool",
   "main": "dist/index.js",
   "bin": {
     "packagelink": "dist/index.js"
@@ -22,9 +22,17 @@
   "files": [
     "dist"
   ],
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "node",
+    "npm",
+    "link",
+    "npm-link",
+    "lerna",
+    "version",
+    "publish"
+  ],
+  "author": "Pavel Teshchin <statispunk@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/satispunk/packagelink/issues"
   },
