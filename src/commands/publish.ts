@@ -45,8 +45,14 @@ const handler = (argv): void => {
 
   for (const packageFolder of packages) {
     const packageJson = JSON.parse(fs.readFileSync(path.resolve(packageFolder, 'package.json')).toString());
-    const packagePathWithVersion = path.resolve(packagelinkDir, getPackageFileNameWithVersion(packageJson));
-    const packagePath = path.resolve(packagelinkDir, getPackageFileName(packageJson));
+    const packagePathWithVersion = path.resolve(
+      packagelinkDir,
+      getPackageFileNameWithVersion({
+        name: packageJson.name,
+        version: packageJson.version,
+      })
+    );
+    const packagePath = path.resolve(packagelinkDir, getPackageFileName(packageJson.name));
     fs.renameSync(packagePathWithVersion, packagePath);
   }
 };

@@ -8,6 +8,7 @@ import {installSchema} from '../config/schema';
 import chalk from 'chalk';
 import {Config} from '../config/Config';
 import {Argv} from 'yargs';
+import getPackageFileName from '../utils/getPackageFileName';
 
 const cwd = process.cwd();
 const tmpdir = os.tmpdir();
@@ -22,7 +23,7 @@ const install = ({packages, dependencyType}: {packages: string[]; dependencyType
   if (packages.length === 0) return;
 
   const packageList = packages.reduce((packageList, nextPackage) => {
-    const packagePath = path.join(cwd, `${nextPackage}.tgz`);
+    const packagePath = path.join(cwd, `${getPackageFileName(nextPackage)}.tgz`);
     if (fs.existsSync(packagePath)) {
       packageList += ' ' + packagePath;
     }
@@ -78,8 +79,9 @@ const handler = (argv): void => {
     const packageFolder = path.resolve(cwd, 'node_modules', packageName);
     deleteFolderRecursive(packageFolder);
 
-    const srcPackagePath = path.resolve(packagelinkDir, `${packageName}.tgz`);
-    const destPackagePath = path.resolve(cwd, `${packageName}.tgz`);
+    const packageFileName = getPackageFileName(packageName);
+    const srcPackagePath = path.resolve(packagelinkDir, `${packageFileName}.tgz`);
+    const destPackagePath = path.resolve(cwd, `${packageFileName}.tgz`);
     if (fs.existsSync(srcPackagePath)) {
       fs.copyFileSync(srcPackagePath, destPackagePath);
     }

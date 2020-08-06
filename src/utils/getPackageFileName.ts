@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export default (packageJson: any): string => {
-  /* eslint-enable @typescript-eslint/no-explicit-any */
-  const {name: nameWithScope} = packageJson;
+export default (nameWithScope: string): string => {
   let name = nameWithScope;
   let scope = '';
   if (name.includes('/')) {
