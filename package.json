@@ -1,6 +1,6 @@
 {
   "name": "@satispunk/packagelink",
-  "version": "0.1.7-1",
+  "version": "0.1.7-2",
   "description": "npm link alternative tool",
   "main": "dist/index.js",
   "bin": {
