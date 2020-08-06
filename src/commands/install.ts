@@ -23,7 +23,7 @@ const install = ({packages, dependencyType}: {packages: string[]; dependencyType
   if (packages.length === 0) return;
 
   const packageList = packages.reduce((packageList, nextPackage) => {
-    const packagePath = path.join(cwd, `${getPackageFileName(nextPackage)}.tgz`);
+    const packagePath = path.join(cwd, getPackageFileName(nextPackage));
     if (fs.existsSync(packagePath)) {
       packageList += ' ' + packagePath;
     }
@@ -80,8 +80,8 @@ const handler = (argv): void => {
     deleteFolderRecursive(packageFolder);
 
     const packageFileName = getPackageFileName(packageName);
-    const srcPackagePath = path.resolve(packagelinkDir, `${packageFileName}.tgz`);
-    const destPackagePath = path.resolve(cwd, `${packageFileName}.tgz`);
+    const srcPackagePath = path.resolve(packagelinkDir, packageFileName);
+    const destPackagePath = path.resolve(cwd, packageFileName);
     if (fs.existsSync(srcPackagePath)) {
       fs.copyFileSync(srcPackagePath, destPackagePath);
     }
