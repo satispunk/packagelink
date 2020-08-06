@@ -6,6 +6,7 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/camelcase': 0,
+    '@typescript-eslint/explicit-module-boundary-types': 0,
   },
   overrides: [
     {
