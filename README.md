@@ -77,11 +77,11 @@ module.exports = {
 
 ## CLI
 
-### packagelink publish
+### `packagelink publish`
 
 Publish local packages based packagelink.config.js or package.json 
 
-### packagelink install [packageName] [--dev] 
+### `packagelink install [packageName] [--dev]` 
 
 Install packages based packagelink.config.js or provided packageName argument.
 If `--dev` is set, packages are installed as devDependency.
