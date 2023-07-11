@@ -71,8 +71,8 @@ const handler = (argv): void => {
       dependencies.push(packageName);
     }
   } else {
-    dependencies.push(...config.install.dependencies);
-    devDependencies.push(...config.install.devDependencies);
+    dependencies.push(...(config.install.dependencies || []));
+    devDependencies.push(...(config.install.devDependencies || []));
   }
 
   for (const packageName of [...dependencies, ...devDependencies]) {

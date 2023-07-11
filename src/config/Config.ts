@@ -3,7 +3,7 @@ export type Config = {
     packages: string[];
   };
   install?: {
-    dependencies: string[];
-    devDependencies: string[];
+    dependencies?: string[];
+    devDependencies?: string[];
   };
-}
+};
